@@ -1,0 +1,102 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "adcs-isvs"
+version = "0.1.0"
+description = "Python/Linux ADCS simulation and verification workstation with Kalman sensor fusion."
+readme = "README.md"
+requires-python = ">=3.10"
+authors = [
+    { name = "Davis Reardon" }
+]
+license = { text = "TBD" }
+keywords = [
+    "ADCS",
+    "GN&C",
+    "Kalman filter",
+    "reaction wheel",
+    "simulation",
+    "verification",
+    "test automation",
+    "spacecraft",
+    "controls"
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Operating System :: POSIX :: Linux",
+    "Topic :: Scientific/Engineering",
+    "Topic :: Scientific/Engineering :: Physics",
+    "Topic :: Software Development :: Testing"
+]
+
+dependencies = [
+    "numpy>=1.26",
+    "scipy>=1.11",
+    "pandas>=2.1",
+    "matplotlib>=3.8",
+    "pyyaml>=6.0",
+    "filterpy>=1.4.5",
+    "jinja2>=3.1",
+    "markdown>=3.5",
+    "tqdm>=4.66",
+    "rich>=13.7",
+    "typer>=0.9"
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.4",
+    "pytest-cov>=4.1",
+    "black>=23.0",
+    "ruff>=0.1",
+    "mypy>=1.7",
+    "jupyter>=1.0",
+    "ipykernel>=6.29"
+]
+
+[project.scripts]
+adcs-isvs = "adcs_isvs.main:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.black]
+line-length = 100
+target-version = ["py310", "py311", "py312"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = [
+    "E",
+    "F",
+    "I",
+    "B",
+    "UP",
+    "SIM"
+]
+ignore = []
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = "-ra --strict-markers"
+
+[tool.mypy]
+python_version = "3.10"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = false
+ignore_missing_imports = true
